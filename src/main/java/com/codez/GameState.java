@@ -7,31 +7,34 @@ public class GameState {
     // @TODO: Convert fields to use Enums.
     // @TODO: Implement java.serializable.
 
-    private String winner;
-    private int redScore;
-    private int blueScore;
-
-    private String teamTurn; //  Which team is up.
-    private boolean spymasterTurn; // Spymaster goes first, then chooser.
-    private int remainingGuesses;
-
-    private int numWords;
-    private int numToWin;
-
-    private Map<String, String> wordsState;
+    private final String teamTurn; //  Which team is up.
+    private final boolean spymasterTurn; // Spymaster goes first, then chooser.
+    private final String hint;
+    private final int remainingGuesses;
 
     // @TODO: More constructors.
 
-    public GameState (Map<String, String> wordsState, String teamTurn, boolean spymasterTurn, int remainingGuesses, int numToWin) {
-        this.wordsState = wordsState;
+    public GameState (String teamTurn, boolean spymasterTurn, String hint, int remainingGuesses) {
         this.teamTurn = teamTurn;
         this.spymasterTurn = spymasterTurn;
+        this.hint = hint;
         this.remainingGuesses = remainingGuesses;
-        this.numToWin = numToWin;
-
-        // @TODO: Add in methods for figuring out derived fields.
     }
 
+    public String getTeamTurn() {
+        return teamTurn;
+    }
 
+    public boolean isSpymasterTurn() {
+        return spymasterTurn;
+    }
 
-}
+    public String getHint() {
+        return hint;
+    }
+
+    public int getRemainingGuesses() {
+        return remainingGuesses;
+    }
+
+    }
