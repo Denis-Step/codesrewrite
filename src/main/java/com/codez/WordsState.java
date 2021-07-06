@@ -13,6 +13,9 @@ public class WordsState {
     private Map<String, ArrayList<String>> values;
 
     public WordsState(Map<String, String> wordsMap){
+        this.words = new ArrayList();
+        this.values = new HashMap<>();
+
         for (Map.Entry<String, String> entry: wordsMap.entrySet()) {
             String word = entry.getKey();
             String value = entry.getValue();
@@ -27,6 +30,7 @@ public class WordsState {
             else {
                 ArrayList<String> valueWords = new ArrayList<String>();
                 valueWords.add(word);
+                this.values.put(value, valueWords);
             }
         }
     }

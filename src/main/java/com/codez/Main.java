@@ -20,7 +20,8 @@ public class Main {
 
         TextFileSource tfs = new TextFileSource("/Users/denisstepanenko/Documents/codezrewrite/src/main/java/com/codez/5lenwords.txt");
 
-        System.out.println(tfs.getWords()[500]);
+        WordsState ws = tfs.createBoard();
+        System.out.println(ws.getValues());
 
 	// write your code here
     }
