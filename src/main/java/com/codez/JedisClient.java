@@ -9,7 +9,7 @@ public class JedisClient {
     // Percolate up RuntimeExceptions from base client.
     // @TODO: Make constructor a private method and refactor to turn strings into URI's.
 
-    private Jedis jedis;
+    private final Jedis jedis;
 
     public JedisClient(){
 

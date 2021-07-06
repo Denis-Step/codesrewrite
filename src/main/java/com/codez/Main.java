@@ -1,16 +1,23 @@
 package com.codez;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-
-        System.out.println("Working");
-
         JedisClient jeds = new JedisClient();
 
-        jeds.set("test", "hot");
-        String test = jeds.get("test");
-        System.out.println(test);
+        HashMap<String, String> testWords = new HashMap<String, String>();
+
+        testWords.put("hello", "red");
+        testWords.put("yo", "blue");
+        testWords.put("gmorning", "black");
+
+        jeds.set("testwords", testWords);
+
+        System.out.println(jeds.getAll("testwords"));
+
 	// write your code here
     }
 }

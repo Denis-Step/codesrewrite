@@ -2,6 +2,7 @@ package com.codez;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 // Record-like object for encapsulating state relating to a board's words.
 // Does NOT need size parameter in constructor.
@@ -34,21 +35,18 @@ public class WordsState {
         return (ArrayList<String>) this.words.clone();
     }
 
+
     public Map<String, ArrayList<String>> getValues() {
-        // Deep-copy for immutability.
 
-        Map<String, ArrayList<String>> newValues = new HashMap<String, ArrayList<String>>();
+        Map<String, ArrayList<String>> newValues = new HashMap<>();
 
-        for (Map.Entry<String, ArrayList<String>> entry : this.values.entrySet()){
-            ArrayList<String > listCopy = (ArrayList<String>) entry.getValue().clone();
-
-            for (String word : entry.getValue()){
-                listCopy.add(word);
-            }
-            newValues.put(entry.getKey(), listCopy);
-        }
+        this.values.entrySet()
+                .stream().forEach(
+                        entry -> newValues.put(
+                                entry.getKey(), (ArrayList<String>) entry.getValue().clone()
+                        )
+        );
 
         return newValues;
-
     }
 }
