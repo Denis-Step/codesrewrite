@@ -18,6 +18,10 @@ public class Main {
 
         System.out.println(jeds.getAll("testwords"));
 
+        TextFileSource tfs = new TextFileSource("/Users/denisstepanenko/Documents/codezrewrite/src/main/java/com/codez/5lenwords.txt");
+
+        System.out.println(tfs.getWords()[500]);
+
 	// write your code here
     }
 }
