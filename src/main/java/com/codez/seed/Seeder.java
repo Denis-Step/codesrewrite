@@ -1,4 +1,6 @@
-package com.codez;
+package com.codez.seed;
+
+import com.codez.WordsState;
 
 import java.util.Map;
 

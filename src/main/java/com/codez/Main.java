@@ -1,7 +1,7 @@
 package com.codez;
-import java.util.ArrayList;
+import com.codez.seed.TextFileSource;
+
 import java.util.HashMap;
-import java.util.List;
 
 public class Main {
 
@@ -18,7 +18,7 @@ public class Main {
 
         System.out.println(jeds.getAll("testwords"));
 
-        TextFileSource tfs = new TextFileSource("/Users/denisstepanenko/Documents/codezrewrite/src/main/java/com/codez/5lenwords.txt");
+        TextFileSource tfs = new TextFileSource("/Users/denisstepanenko/Documents/codezrewrite/src/main/java/com/codez/seed/5lenwords.txt");
 
         WordsState ws = tfs.createBoard();
         System.out.println(ws.getValues());

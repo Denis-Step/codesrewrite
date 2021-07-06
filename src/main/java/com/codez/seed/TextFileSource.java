@@ -1,7 +1,8 @@
-package com.codez;
+package com.codez.seed;
+import com.codez.WordsState;
+
 import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.*;
 
 public class TextFileSource implements Seeder {
