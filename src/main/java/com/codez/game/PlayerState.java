@@ -1,11 +1,9 @@
-package com.codez;
-import java.util.Map;
+package com.codez.game;
 
-public class GameState {
+public class PlayerState {
 
     // Record-like object for storing state of a game.
     // @TODO: Convert fields to use Enums.
-    // @TODO: Implement java.serializable.
 
     private final String teamTurn; //  Which team is up.
     private final boolean spymasterTurn; // Spymaster goes first, then chooser.
@@ -14,11 +12,20 @@ public class GameState {
 
     // @TODO: More constructors.
 
-    public GameState (String teamTurn, boolean spymasterTurn, String hint, int remainingGuesses) {
+    public PlayerState(String teamTurn, boolean spymasterTurn, String hint, int remainingGuesses) {
         this.teamTurn = teamTurn;
         this.spymasterTurn = spymasterTurn;
         this.hint = hint;
         this.remainingGuesses = remainingGuesses;
+    }
+
+    public static PlayerState newGameState() {
+        return new PlayerState(
+                "red",
+                true,
+                "",
+                0
+        );
     }
 
     public String getTeamTurn() {

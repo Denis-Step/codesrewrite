@@ -1,26 +1,25 @@
-package com.codez;
+package com.codez.game;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
+// Enforce immutability.
 // Record-like object for encapsulating state relating to a board's words.
-// Does NOT need size parameter in constructor.
 
 public class WordsState {
 
-    private ArrayList<String> words;
+    private String[] words;
     private Map<String, ArrayList<String>> values;
 
     public WordsState(Map<String, String> wordsMap){
-        this.words = new ArrayList();
+        ArrayList<String> wordList = new ArrayList();
         this.values = new HashMap<>();
 
         for (Map.Entry<String, String> entry: wordsMap.entrySet()) {
             String word = entry.getKey();
             String value = entry.getValue();
 
-            this.words.add(word);
+            wordList.add(word);
 
             // @MUTATION of Map value
             if (this.values.containsKey(value)){
@@ -33,10 +32,12 @@ public class WordsState {
                 this.values.put(value, valueWords);
             }
         }
+
+        this.words = wordList.toArray(new String[wordList.size()]);
     }
 
-    public ArrayList<String> getWords() {
-        return (ArrayList<String>) this.words.clone();
+    public String[] getWords() {
+        return this.words.clone();
     }
 
 

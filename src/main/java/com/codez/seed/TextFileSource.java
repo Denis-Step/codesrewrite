@@ -1,9 +1,10 @@
 package com.codez.seed;
-import com.codez.WordsState;
+import com.codez.game.WordsState;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class TextFileSource implements Seeder {
 
@@ -34,8 +35,8 @@ public class TextFileSource implements Seeder {
 
     }
 
-    public String[] getWords(){
-        return words;
+    public Stream<String> getAllWords(){
+        return Arrays.stream(words);
     }
 
     // Default is for 9 red, 8 blue, 1 black, 7 neutral
