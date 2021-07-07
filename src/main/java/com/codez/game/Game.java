@@ -2,10 +2,8 @@ package com.codez.game;
 
 import com.codez.seed.Seeder;
 import com.codez.seed.TextFileSource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
 
 /*
     Keep business logic in here. PlayerState/WordsState are meant to be immutable Record-like objects.
@@ -14,19 +12,25 @@ import java.util.Set;
  */
 
 public class Game {
-    private static Seeder seeder = new TextFileSource("/Users/denisstepanenko/Documents/codezrewrite/src/main/java/com/codez/seed/5lenwords.txt");
+    public final String ID;
 
-    private String[] teams;
+    public static Seeder seeder = new TextFileSource("/Users/denisstepanenko/Documents/codezrewrite/src/main/java/com/codez/seed/5lenwords.txt");
+
+    private final String[] teams;
     private WordsState wordsState;
     private PlayerState playerState;
-
-    private Map<String, Integer> score;
+    private final Map<String, Integer> score;
 
 
     public Game (WordsState wordsState, PlayerState playerState) {
         this.teams = new String[] {"red", "blue"};
         this.wordsState = wordsState;
         this.playerState = playerState;
+        this.score = calculateScore();
+
+        // @TODO: Add ID param.
+
+        this.ID = UUID.randomUUID().toString();
     }
 
     // Business logic related to keys in here.
@@ -42,6 +46,8 @@ public class Game {
                  scoreMap.put(team, 0);
              }
         }
+
+        return scoreMap;
     }
 
     // default
@@ -59,8 +65,22 @@ public class Game {
         return this.wordsState.getWords();
     }
 
-    public Map<String, ArrayList<String>> getBoardState (){
-        return this.wordsState.getValues();
+    public Map<String, String> getBoard(){
+        return this.wordsState.getWordsMap();
     }
 
+    public Map<String, Integer> getScore() {
+        return score;
+    }
+
+    public Map<String, String> getTurn() {
+        Map<String, String> turnMap = new HashMap<>();
+
+        turnMap.put("teamTurn", playerState.getTeamTurn());
+        turnMap.put("spymasterTurn", Boolean.toString(playerState.getSpymasterTurn()));
+        turnMap.put("hint", playerState.getHint());
+        turnMap.put("remainingGuesses", Integer.toString(playerState.getRemainingGuesses()));
+
+        return turnMap;
+    }
 }

@@ -8,10 +8,12 @@ import java.util.HashMap;
 
 public class WordsState {
 
+    private Map<String, String> wordsMap;
     private String[] words;
     private Map<String, ArrayList<String>> values;
 
     public WordsState(Map<String, String> wordsMap){
+        this.wordsMap = wordsMap;
         ArrayList<String> wordList = new ArrayList();
         this.values = new HashMap<>();
 
@@ -53,5 +55,9 @@ public class WordsState {
         );
 
         return newValues;
+    }
+
+    public Map<String, String> getWordsMap() {
+        return wordsMap;
     }
 }

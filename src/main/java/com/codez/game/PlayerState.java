@@ -32,7 +32,7 @@ public class PlayerState {
         return teamTurn;
     }
 
-    public boolean isSpymasterTurn() {
+    public boolean getSpymasterTurn() {
         return spymasterTurn;
     }
 
