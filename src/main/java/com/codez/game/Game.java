@@ -2,6 +2,8 @@ package com.codez.game;
 
 import com.codez.seed.Seeder;
 import com.codez.seed.TextFileSource;
+import org.apache.commons.lang3.ArrayUtils;
+
 
 import java.util.*;
 
@@ -36,15 +38,30 @@ public class Game {
     // Business logic related to keys in here.
     private Map<String, Integer> calculateScore () {
         Map<String, ArrayList<String>> values = this.wordsState.getValues();
+        System.out.println(values);
+
+        // Init scoreMap for all teams.
         Map<String, Integer> scoreMap = new HashMap<>();
 
         for (String team: this.teams) {
-            String chosenKey = team + "-" + team;
-             if (values.containsKey(chosenKey)) {
-                 scoreMap.put(team, values.get(team).size());
-             } else {
-                 scoreMap.put(team, 0);
-             }
+            scoreMap.put(team, 0);
+        }
+
+        for (Map.Entry<String, ArrayList<String>> entry: values.entrySet()) {
+            String[] key = entry.getKey().split("-");
+
+            // Avoid looking at unchosen words.
+            if (key.length < 2) {
+                continue;
+            }
+
+            // Avoid grabbing score for neutral and black.
+            // This checks score based on the second part of the key being chosen.
+            if (scoreMap.containsKey(key[0])){
+
+                Integer score = scoreMap.get(key[1]);
+                scoreMap.put(key[1], score++);
+            }
         }
 
         return scoreMap;

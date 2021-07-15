@@ -5,6 +5,7 @@ public class PlayerState {
     // Record-like object for storing state of a game.
     // @TODO: Convert fields to use Enums.
 
+    private final String[] teams;
     private final String teamTurn; //  Which team is up.
     private final boolean spymasterTurn; // Spymaster goes first, then chooser.
     private final String hint;
@@ -12,19 +13,23 @@ public class PlayerState {
 
     // @TODO: More constructors.
 
-    public PlayerState(String teamTurn, boolean spymasterTurn, String hint, int remainingGuesses) {
+    public PlayerState(String teamTurn, boolean spymasterTurn, String hint, int remainingGuesses, String[] teams) {
         this.teamTurn = teamTurn;
         this.spymasterTurn = spymasterTurn;
         this.hint = hint;
         this.remainingGuesses = remainingGuesses;
+        this.teams = teams;
     }
 
     public static PlayerState newGameState() {
+
+        String[] teams = {"red", "blue"};
         return new PlayerState(
                 "red",
                 true,
                 "",
-                0
+                0,
+                teams
         );
     }
 
