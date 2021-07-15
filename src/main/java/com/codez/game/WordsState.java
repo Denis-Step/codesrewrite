@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 // Enforce immutability.
 // Record-like object for encapsulating state relating to a board's words.
+// @TODO: Remove words array, only here for ease of use for now.
 
 public class WordsState {
 

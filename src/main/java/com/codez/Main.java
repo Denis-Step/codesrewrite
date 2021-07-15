@@ -1,5 +1,6 @@
 package com.codez;
 import com.codez.game.Game;
+import com.codez.game.GameBuilder;
 import com.codez.io.GameController;
 import com.codez.io.JedisClient;
 
@@ -10,7 +11,8 @@ public class Main {
     public static void main(String[] args) {
         JedisClient jeds = new JedisClient();
 
-        Game g = Game.createGame();
+        GameBuilder gb = new GameBuilder();
+        Game g = gb.build();
         GameController gc = new GameController();
         gc.save(g);
 

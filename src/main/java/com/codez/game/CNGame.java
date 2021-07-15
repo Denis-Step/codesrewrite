@@ -11,7 +11,7 @@ import java.util.*;
     should be encapsulated here or in a higher-level class.
  */
 
-public class Game {
+public class CNGame {
     public final String ID;
 
     private final String[] teams;
@@ -20,17 +20,15 @@ public class Game {
     private final Map<String, Integer> score;
 
 
-    // @TODO: Add ID param.
-    public Game (WordsState wordsState, PlayerState playerState) {
+    public CNGame (WordsState wordsState, PlayerState playerState) {
         this.teams = new String[] {"red", "blue"};
         this.wordsState = wordsState;
         this.playerState = playerState;
         this.score = calculateScore();
-        this.ID = UUID.randomUUID().toString();
-    }
 
-    public Game (WordsState wordsState) {
-        this(wordsState, PlayerState.newGameState());
+        // @TODO: Add ID param.
+
+        this.ID = UUID.randomUUID().toString();
     }
 
     // Business logic related to keys in here.
@@ -40,15 +38,16 @@ public class Game {
 
         for (String team: this.teams) {
             String chosenKey = team + "-" + team;
-             if (values.containsKey(chosenKey)) {
-                 scoreMap.put(team, values.get(team).size());
-             } else {
-                 scoreMap.put(team, 0);
-             }
+            if (values.containsKey(chosenKey)) {
+                scoreMap.put(team, values.get(team).size());
+            } else {
+                scoreMap.put(team, 0);
+            }
         }
 
         return scoreMap;
     }
+
 
     public String[] getBoardWords (){
         return this.wordsState.getWords();
