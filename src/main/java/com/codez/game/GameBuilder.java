@@ -12,7 +12,7 @@ public class GameBuilder {
 
     // Default is the embedded text file.
     public GameBuilder() {
-        this.seed  = new TextFileSource("/Users/denisstepanenko/Documents/codezrewrite/src/main/java/com/codez/seed/5lenwords.txt");
+        this.seed  = new TextFileSource("/Users/denisstp/IdeaProjects/codesrewrite/src/main/java/com/codez/seed/5lenwords.txt");
     }
 
     public Game build() {
