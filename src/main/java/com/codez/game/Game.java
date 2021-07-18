@@ -1,9 +1,5 @@
 package com.codez.game;
 
-import com.codez.seed.Seeder;
-import com.codez.seed.TextFileSource;
-import org.apache.commons.lang3.ArrayUtils;
-
 
 import java.util.*;
 
@@ -16,17 +12,19 @@ import java.util.*;
 public class Game {
     public final String ID;
 
-    private WordsState wordsState;
-    private PlayerState playerState;
+    private WordsState ws;
+    private PlayerState ps;
     private final Map<String, Integer> score;
 
-
-    // @TODO: Add ID param.
-    public Game (WordsState wordsState, PlayerState playerState) {
-        this.wordsState = wordsState;
-        this.playerState = playerState;
+    public Game (WordsState wordsState, PlayerState ps, String ID) {
+        this.ws = wordsState;
+        this.ps = ps;
         this.score = calculateScore();
-        this.ID = UUID.randomUUID().toString();
+        this.ID = ID;
+    }
+
+    public Game (WordsState wordsState, PlayerState ps) {
+        this(wordsState, ps, UUID.randomUUID().toString());
     }
 
     public Game (WordsState wordsState) {
@@ -34,11 +32,11 @@ public class Game {
     }
 
     public String[] getBoardWords (){
-        return this.wordsState.getWords();
+        return this.ws.getWords();
     }
 
     public Map<String, String> getBoard(){
-        return this.wordsState.getWordsMap();
+        return this.ws.getWordsMap();
     }
 
     public Map<String, Integer> getScore() {
@@ -48,23 +46,23 @@ public class Game {
     public Map<String, String> getTurn() {
         Map<String, String> turnMap = new HashMap<>();
 
-        turnMap.put("teamTurn", playerState.getTeamTurn());
-        turnMap.put("spymasterTurn", Boolean.toString(playerState.getSpymasterTurn()));
-        turnMap.put("hint", playerState.getHint());
-        turnMap.put("remainingGuesses", Integer.toString(playerState.getRemainingGuesses()));
+        turnMap.put("teamTurn", ps.getTeams()[ps.getTeamTurn()]);
+        turnMap.put("spymasterTurn", Boolean.toString(ps.getSpymasterTurn()));
+        turnMap.put("hint", ps.getHint());
+        turnMap.put("remainingGuesses", Integer.toString(ps.getRemainingGuesses()));
 
         return turnMap;
     }
 
     // Business logic related to keys in here.
     private Map<String, Integer> calculateScore () {
-        Map<String, ArrayList<String>> values = this.wordsState.getValues();
+        Map<String, ArrayList<String>> values = this.ws.getValues();
         System.out.println(values);
 
         // Init scoreMap for all teams.
         Map<String, Integer> scoreMap = new HashMap<>();
 
-        for (String team: this.playerState.getTeams()) {
+        for (String team: this.ps.getTeams()) {
             scoreMap.put(team, 0);
         }
 
@@ -88,7 +86,28 @@ public class Game {
         return scoreMap;
     }
 
-    private void nextTeamTurn() {
-        PlayerState ps = this.playerState;
+
+    /* Assume moves are valid farther up the stack. */
+
+    public Game makeSpymasterTurn(String hint, int guesses){
+        PlayerState newPS = this.ps.makeSpymasterTurn(hint, guesses);
+        return new Game(this.ws, newPS, this.ID);
+    };
+
+    public Game makeChooserMove(String word){
+        String team = this.ps.getTeams()[this.ps.getTeamTurn()];
+        WordsState newWS;
+        PlayerState newPS;
+
+        if (this.ws.getWordValue(word) == team) {
+            newWS = this.ws.chooseWord(word, team);
+            newPS = this.ps.makeChooserMove();
+        }
+        else {
+            newWS = this.ws.chooseWord(word, team);
+            newPS = this.ps.changeTeamTurn();
+        }
+
+       return new Game(newWS, newPS, this.ID);
     }
 }

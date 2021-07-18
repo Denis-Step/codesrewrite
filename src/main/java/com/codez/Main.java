@@ -14,11 +14,10 @@ public class Main {
         GameBuilder gb = new GameBuilder();
         Game g = gb.build();
         GameController gc = new GameController();
-        gc.save(g);
 
-        System.out.println(g.ID);
-        System.out.println(jeds.getAll(g.ID + ":words"));
-        System.out.println(jeds.getAll(g.ID + ":player"));
+        g = g.makeSpymasterTurn("rouge", 3);
+
+        System.out.println(g.getTurn());
 
 	// write your code here
     }

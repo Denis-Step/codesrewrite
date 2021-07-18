@@ -33,8 +33,8 @@ public class PlayerState {
         );
     }
 
-    public String getTeamTurn() {
-        return this.teams[this.teamTurn];
+    public int getTeamTurn() {
+        return this.teamTurn;
     }
 
     public boolean getSpymasterTurn() {
@@ -51,14 +51,43 @@ public class PlayerState {
 
     public String[] getTeams() {return teams;}
 
-    public PlayerState nextTeamTurn() {
+    /* Define transitions here: */
+
+    public PlayerState changeTeamTurn() {
+
+        return new PlayerState(this.getNextTeam(),
+                true,
+                "",
+                0,
+                this.teams);
+    }
+
+    public PlayerState makeSpymasterTurn(String hint, int guesses){
+        return new PlayerState(this.teamTurn, false, hint, guesses, this.teams);
+    }
+
+    public PlayerState makeChooserMove(){
+
+        if (this.remainingGuesses > 1) {
+            return new PlayerState(this.teamTurn,
+                    false,
+                    this.hint,
+                    this.remainingGuesses - 1,
+                    this.teams);
+        } else {
+            return this.changeTeamTurn();
+        }
+
+    }
+
+    private int getNextTeam() {
         int nxtTeam;
 
         if (this.teamTurn == this.teams.length - 1) {
             nxtTeam = 0;
         } else {nxtTeam = this.teamTurn + 1;}
 
-        return new PlayerState(nxtTeam, true, "", 0, this.teams);
+        return nxtTeam;
     }
 
     }

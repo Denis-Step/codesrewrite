@@ -64,7 +64,7 @@ public class CNGame {
     public Map<String, String> getTurn() {
         Map<String, String> turnMap = new HashMap<>();
 
-        turnMap.put("teamTurn", playerState.getTeamTurn());
+        turnMap.put("teamTurn", this.playerState.getTeams()[playerState.getTeamTurn()]);
         turnMap.put("spymasterTurn", Boolean.toString(playerState.getSpymasterTurn()));
         turnMap.put("hint", playerState.getHint());
         turnMap.put("remainingGuesses", Integer.toString(playerState.getRemainingGuesses()));

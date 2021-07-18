@@ -44,7 +44,6 @@ public class TextFileSource implements Seeder {
 
         Map<String, String> boardMap = new HashMap<>();
         int sizeWords = words.length;
-        System.out.println(sizeWords);
 
         // Red
         for (int i = 0; i < 9; i++) {
@@ -99,7 +98,6 @@ public class TextFileSource implements Seeder {
             }
         }
 
-        System.out.println(boardMap);
         return new WordsState(boardMap);
 
     }

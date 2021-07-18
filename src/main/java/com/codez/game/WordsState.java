@@ -43,7 +43,6 @@ public class WordsState {
         return this.words.clone();
     }
 
-
     public Map<String, ArrayList<String>> getValues() {
 
         Map<String, ArrayList<String>> newValues = new HashMap<>();
@@ -59,6 +58,24 @@ public class WordsState {
     }
 
     public Map<String, String> getWordsMap() {
-        return wordsMap;
+        return new HashMap<>(this.wordsMap);
+    }
+
+    public String getWordValue(String word){
+        return this.wordsMap.get(word);
+    }
+
+    public WordsState chooseWord(String word, String team) {
+        HashMap<String, String> newMap;
+
+        if (this.wordsMap.get(word).split("-").length == 1) {
+            newMap = new HashMap<>(this.wordsMap);
+            String val = newMap.get(word);
+            newMap.put(word, val + "-" + team);
+        } else {
+            newMap = new HashMap<>(this.wordsMap);
+        }
+
+        return new WordsState(newMap);
     }
 }
