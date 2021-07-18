@@ -1,6 +1,7 @@
 package com.codez.game;
 
 public class PlayerState {
+    public static String[] DEFAULT_TEAMS = {"red", "blue"};
 
     // Record-like object for storing state of a game.
     // @TODO: Convert fields to use Enums.
@@ -22,8 +23,10 @@ public class PlayerState {
     }
 
     public static PlayerState newGameState() {
+        return PlayerState.newGameState(DEFAULT_TEAMS);
+    }
 
-        String[] teams = {"red", "blue"};
+    public static PlayerState newGameState(String[] teams) {
         return new PlayerState(
                 0,
                 true,
