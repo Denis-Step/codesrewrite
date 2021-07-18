@@ -5,7 +5,7 @@ import com.codez.io.JedisClient;
 
 import java.util.HashMap;
 
-public class Main {
+public class GamesMain {
 
     public static void main(String[] args) {
         JedisClient jeds = new JedisClient();

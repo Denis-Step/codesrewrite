@@ -1,5 +1,6 @@
 package com.codez.game;
 
+
 public class PlayerState {
     public static String[] DEFAULT_TEAMS = {"red", "blue"};
 
