@@ -67,7 +67,6 @@ public class Game {
     // Business logic related to keys in here.
     private Map<String, Integer> calculateScore () {
         Map<String, ArrayList<String>> values = this.ws.getValues();
-        System.out.println(values);
 
         // Init scoreMap for all teams.
         Map<String, Integer> scoreMap = new HashMap<>();
