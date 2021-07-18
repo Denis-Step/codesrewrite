@@ -8,10 +8,15 @@ import java.util.stream.Stream;
 
 public class TextFileSource implements Seeder {
 
+    private String path;
     private String[] words;
     private Random random = new Random();
 
-    public TextFileSource (String path) {
+    public TextFileSource (String sourcePath) {
+        setPath(sourcePath);
+    }
+
+    private String[] parseTextFile(String path){
         Charset charset = Charset.forName("US-ASCII");
         ArrayList<String> wordsList = new ArrayList<>();
         try {
@@ -31,8 +36,13 @@ public class TextFileSource implements Seeder {
         catch (IOException exception) {
             System.err.println(exception);
         }
-        words = wordsList.toArray(new String[1000]);
 
+        return wordsList.toArray(new String[1]);
+    };
+
+    public void setPath(String sourcePath) {
+        path = sourcePath;
+        words = parseTextFile(path);
     }
 
     public Stream<String> getAllWords(){

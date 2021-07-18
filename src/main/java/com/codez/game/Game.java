@@ -1,6 +1,9 @@
 package com.codez.game;
 
 
+import com.codez.seed.Seeder;
+import com.codez.seed.TextFileSource;
+
 import java.util.*;
 
 /*
@@ -10,6 +13,9 @@ import java.util.*;
  */
 
 public class Game {
+    public static Seeder seed = new TextFileSource("/Users/denisstepanenko/Documents/codezrewrite/src/main/java/com/codez/seed/5lenwords.txt");
+    public static GameBuilder gb = new GameBuilder(seed);
+
     public final String ID;
 
     private WordsState ws;
@@ -31,6 +37,10 @@ public class Game {
         this(wordsState, PlayerState.newGameState());
     }
 
+    public static Game createGame(){
+        return Game.gb.build();
+    }
+
     public String[] getBoardWords (){
         return this.ws.getWords();
     }
@@ -40,7 +50,7 @@ public class Game {
     }
 
     public Map<String, Integer> getScore() {
-        return score;
+        return this.score;
     }
 
     public Map<String, String> getTurn() {
