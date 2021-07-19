@@ -1,21 +1,17 @@
 package com.codez;
 import com.codez.game.Game;
-import com.codez.io.GameController;
-import com.codez.io.JedisClient;
-
-import java.util.HashMap;
+import com.codez.io.RedisController;
 
 public class GamesMain {
 
     public static void main(String[] args) {
-        JedisClient jeds = new JedisClient();
-
         Game g = Game.createGame();
-        GameController gc = new GameController();
-
         g = g.makeSpymasterTurn("rouge", 3);
+        g.save();
+        System.out.println(Game.exists(g.ID));
+        Game ng = Game.getGame(g.ID);
 
-        System.out.println(g.getTurn());
+        System.out.println(ng.getTurn());
 
 	// write your code here
     }

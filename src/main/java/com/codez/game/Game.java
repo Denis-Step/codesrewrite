@@ -1,6 +1,8 @@
 package com.codez.game;
 
 
+import com.codez.io.IOController;
+import com.codez.io.RedisController;
 import com.codez.seed.Seeder;
 import com.codez.seed.TextFileSource;
 
@@ -15,6 +17,7 @@ import java.util.*;
 public class Game {
     public static Seeder seed = new TextFileSource("/Users/denisstepanenko/Documents/codezrewrite/src/main/java/com/codez/seed/5lenwords.txt");
     public static GameBuilder gb = new GameBuilder(seed);
+    public static IOController io = new RedisController();
 
     public final String ID;
 
@@ -41,6 +44,10 @@ public class Game {
         return Game.gb.build();
     }
 
+    public static Game getGame(String ID) {
+        return io.getGame(ID);
+    }
+
     public String[] getBoardWords (){
         return this.ws.getWords();
     }
@@ -56,12 +63,21 @@ public class Game {
     public Map<String, String> getTurn() {
         Map<String, String> turnMap = new HashMap<>();
 
-        turnMap.put("teamTurn", ps.getTeams()[ps.getTeamTurn()]);
+        turnMap.put("teams", String.join(",", ps.getTeams()));
+        turnMap.put("teamTurn", String.valueOf(ps.getTeamTurn()));
         turnMap.put("spymasterTurn", Boolean.toString(ps.getSpymasterTurn()));
         turnMap.put("hint", ps.getHint());
         turnMap.put("remainingGuesses", Integer.toString(ps.getRemainingGuesses()));
 
         return turnMap;
+    }
+
+    public Map<String, Map<String, String>> toMap () {
+        Map<String, Map<String, String>> gameMap = new HashMap<>();
+        gameMap.put("playerState", this.getTurn());
+        gameMap.put("wordsState", this.getBoard());
+
+        return gameMap;
     }
 
     // Business logic related to keys in here.
@@ -119,4 +135,13 @@ public class Game {
 
        return new Game(newWS, newPS, this.ID);
     }
+
+    public static boolean exists(String ID) {
+        return io.exists(ID);
+    }
+
+    public void save() {
+        io.save(this);
+    }
+
 }

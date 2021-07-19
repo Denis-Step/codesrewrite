@@ -1,19 +1,18 @@
 package com.codez.game;
 
 
+import java.util.Map;
+
 public class PlayerState {
     public static String[] DEFAULT_TEAMS = {"red", "blue"};
 
     // Record-like object for storing state of a game.
-    // @TODO: Convert fields to use Enums.
 
     private final String[] teams;
     private final int teamTurn; //  Which team is up.
     private final boolean spymasterTurn; // Spymaster goes first, then chooser.
     private final String hint;
     private final int remainingGuesses;
-
-    // @TODO: More constructors.
 
     public PlayerState(int teamTurn, boolean spymasterTurn, String hint, int remainingGuesses, String[] teams) {
         this.teamTurn = teamTurn;
@@ -22,6 +21,7 @@ public class PlayerState {
         this.remainingGuesses = remainingGuesses;
         this.teams = teams;
     }
+
 
     public static PlayerState newGameState() {
         return PlayerState.newGameState(DEFAULT_TEAMS);
@@ -36,6 +36,7 @@ public class PlayerState {
                 teams
         );
     }
+
 
     public int getTeamTurn() {
         return this.teamTurn;
