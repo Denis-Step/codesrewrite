@@ -1,6 +1,5 @@
 package com.codez;
 import com.codez.game.Game;
-import com.codez.io.RedisController;
 
 public class GamesMain {
 
