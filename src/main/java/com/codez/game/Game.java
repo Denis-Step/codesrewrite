@@ -1,6 +1,7 @@
 package com.codez.game;
 
 
+import com.codez.io.GameDynamoIOController;
 import com.codez.io.IOController;
 import com.codez.io.RedisController;
 import com.codez.seed.Seeder;
@@ -17,7 +18,7 @@ import java.util.*;
 public class Game {
     public static Seeder seed = new TextFileSource("/Users/denisstepanenko/Documents/codezrewrite/src/main/java/com/codez/seed/5lenwords.txt");
     public static GameBuilder gb = new GameBuilder(seed);
-    public static IOController io = new RedisController();
+    public static IOController io = new GameDynamoIOController();
 
     public final String ID;
 
@@ -111,6 +112,25 @@ public class Game {
         return scoreMap;
     }
 
+    public String[] getTeams() {
+        return this.ps.getTeams();
+    }
+
+    public int getTeamTurn() {
+        return this.ps.getTeamTurn();
+    }
+
+    public boolean getSpymasterTurn() {
+        return this.ps.getSpymasterTurn();
+    }
+
+    public String getHint() {
+        return this.ps.getHint();
+    }
+
+    public int getRemainingGuesses() {
+        return this.ps.getRemainingGuesses();
+    }
 
     /* Assume moves are valid farther up the stack. */
 
@@ -136,8 +156,12 @@ public class Game {
        return new Game(newWS, newPS, this.ID);
     }
 
-    public static boolean exists(String ID) {
+    /*public static boolean exists(String ID) {
         return io.exists(ID);
+    }*/
+
+    public static Game getGameById(String ID) {
+        return io.getGame(ID);
     }
 
     public void save() {
