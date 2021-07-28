@@ -1,4 +1,4 @@
-package com.codez;
+package com.codez.resources;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

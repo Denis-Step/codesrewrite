@@ -19,7 +19,6 @@ public class RedisController implements IOController {
     public RedisController(){
 
         this.jedis = new Jedis("localhost", 6379);
-        jedis.ping("Pong!");
     }
 
     public RedisController(String host, int port){
@@ -66,12 +65,11 @@ public class RedisController implements IOController {
         }
     }
 
-    public Game getGame(String ID) {
+    public Game load(String ID) {
         Map<String, String> wsMap = getAll(ID + ":wordsState");
         Map<String, String> psMap = getAll(ID + ":playerState");
 
         WordsState ws = new WordsState(wsMap);
-        System.out.println(psMap.keySet());
         PlayerState ps = new PlayerState(
                     Integer.parseInt(psMap.get("teamTurn")),
                     Boolean.parseBoolean(psMap.get("spymasterTurn")),
@@ -81,6 +79,20 @@ public class RedisController implements IOController {
                     );
         Game g = new Game(ws, ps);
         return g;
+    }
+
+    public void delete(Game g) {
+        delete(g.ID);
+    }
+
+
+    private void delete(String ID) {
+        for (String key: this.jedis.hkeys(ID + ":wordsState")) {
+            this.jedis.hdel(ID+":wordsState", key);
+        }
+        for (String key: this.jedis.hkeys(ID + ":playerState")) {
+            this.jedis.hdel(ID+":playerState", key);
+        }
     }
 
 }

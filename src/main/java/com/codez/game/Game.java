@@ -1,9 +1,8 @@
 package com.codez.game;
 
 
-import com.codez.io.GameDynamoIOController;
+import com.codez.io.DynamoController;
 import com.codez.io.IOController;
-import com.codez.io.RedisController;
 import com.codez.seed.Seeder;
 import com.codez.seed.TextFileSource;
 
@@ -18,7 +17,7 @@ import java.util.*;
 public class Game {
     public static Seeder seed = new TextFileSource("/Users/denisstepanenko/Documents/codezrewrite/src/main/java/com/codez/seed/5lenwords.txt");
     public static GameBuilder gb = new GameBuilder(seed);
-    public static IOController io = new GameDynamoIOController();
+    public static IOController io = new DynamoController();
 
     public final String ID;
 
@@ -46,7 +45,7 @@ public class Game {
     }
 
     public static Game getGame(String ID) {
-        return io.getGame(ID);
+        return io.load(ID);
     }
 
     public String[] getBoardWords (){
@@ -156,16 +155,16 @@ public class Game {
        return new Game(newWS, newPS, this.ID);
     }
 
-    /*public static boolean exists(String ID) {
-        return io.exists(ID);
-    }*/
-
-    public static Game getGameById(String ID) {
-        return io.getGame(ID);
-    }
-
     public void save() {
         io.save(this);
+    }
+
+    public static boolean exists(String ID) {
+        return io.exists(ID);
+    }
+
+    public static Game getGameById(String ID) {
+        return io.load(ID);
     }
 
 }

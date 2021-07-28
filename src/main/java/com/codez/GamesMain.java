@@ -1,13 +1,10 @@
 package com.codez;
-import com.codez.game.Game;
+import com.codez.resources.GameAPIController;
 
 public class GamesMain {
 
     public static void main(String[] args) {
-        Game g = Game.createGame();
-        g = g.makeSpymasterTurn("rouge", 3);
-        g.save();
-        //Game ng = Game.getGameById(g.ID);
+        String gameID = GameAPIController.createGame();
 
         //System.out.println(ng.getTurn());
 
